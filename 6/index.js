@@ -5,29 +5,27 @@ const data = fs.readFileSync('input.txt', 'utf-8');
  
 console.log(data);
 
+var part1result,part2result;
+
 //part 1
 _.forEach(data, (c, i) => {
     var nextfour = data.slice(i, i+4);
-    console.log(`${_.uniq(nextfour)}`); 
-    if (_.uniq(nextfour).length == 4) {
-        console.log(i+4)
-        exit(1)
+    
+    if (_.uniq(nextfour).length == 4 && !part1result) {
+        part1result = i+4;
+        
     }
-    else {
-        console.log('not yet')
-    }
+   
 })
 
 
 //part 2
 _.forEach(data, (c, i) => {
     var nextfour = data.slice(i, i+14);
-    console.log(`${_.uniq(nextfour)}`); 
-    if (_.uniq(nextfour).length == 14) {
-        console.log(i+14)
-        exit(1)
+    if (_.uniq(nextfour).length == 14 && !part2result) {
+        part2result = i+14
     }
-    else {
-        console.log('not yet')
-    }
+  
 })
+
+console.log(part1result, part2result)
