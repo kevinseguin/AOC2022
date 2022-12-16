@@ -54,38 +54,37 @@ while(getNextCommand()) {
         drive[i].total = sum
    }) 
 
+   console.dir(drive, {depth:null})
+   
+
     objmap = _.map(_.keys(drive), f => { return { name: f, files: drive[f]}})
 
-    //console.dir(objmap, {depth:null})
-    console.log('---------')
-
-    //filter for folders < 100k
-    hundoKFilter = _.filter(objmap, o => { return (o.files.total) <= 100000 && o.files.total > 0});
      
-    var folderNames = _.pluck(hundoKFilter,'name' );
-    console.log(hundoKFilter)
+ 
+    var folderNames = _.pluck(objmap,'name' ); 
 
     var t = [];
-    _.forEach(folderNames, fn => {
-        t.push(_.filter(hundoKFilter, k=> { return k.name.startsWith(fn)}))
-    })
-
-    
-    var total = 0; 
-    _.forEach(t, i => { _.forEach(i, k=> {
-        total +=k.files.total 
+    _.forEach(folderNames, (fn,i) => {
+        x = _.filter(objmap, k=> { return k.name.startsWith(fn)})
+        
+       var sum =  _.reduce(_.pluck(_.pluck(_.flatten(x), 'files'),'total'), (a,b) =>{ return a+b}, 0)
+       
+        t.push({f: fn, total: sum})
       
-    })}); 
-   console.dir(total)
+         
+    })
     
+    var maxDiskSpace = 70000000
+    var unusedSpace = 30000000
+    
+    var largestFolder = _.max(t, 'total')  
+    console.log('largest folder: ',largestFolder )
+    var find = maxDiskSpace - largestFolder.total
+    console.log('get folders over' , unusedSpace - find)
+    console.table(_.sortBy(_.filter(t, k=> { return k.total > unusedSpace - find}),'total'))
+
+     
  
-
-    
-
-function getTotal(fileMap) {
-    return _.reduce(_.pluck(_.pluck(fileMap, 'files'), 'total'), (a,b) => { return a+b}, 0)
-}
-
 
 function getNextCommand() {
     curCmd = lines.shift();
