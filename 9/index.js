@@ -50,12 +50,13 @@ mvmt = lines[m].pop().split(" ");
 head = findHead();
 tail = findTail();
 
-if (mvmt[0] == 'U' ) { await expandGrid('U', mvmt[1])}
-if (mvmt[0] == 'D' ) { await expandGrid('D', mvmt[1])}
-if (mvmt[0] == 'L' ) { await expandGrid('L', mvmt[1])}
-if (mvmt[0] == 'R' ) { await expandGrid('R', mvmt[1])}
+if (mvmt[0] == 'U' ) { expandGrid('U', mvmt[1])}
+if (mvmt[0] == 'D' ) { expandGrid('D', mvmt[1])}
+if (mvmt[0] == 'L' ) { expandGrid('L', mvmt[1])}
+if (mvmt[0] == 'R' ) { expandGrid('R', mvmt[1])}
 
-move(mvmt[0], mvmt[1],m);  
+move(mvmt[0], mvmt[1],m); 
+ 
 
 render()
  
@@ -131,7 +132,7 @@ function move(dir, places,index) {
     } 
 }
 
-  function expandGrid(direction,val) {
+function expandGrid(direction,val) {
 
     var curGridWidth = grid[0].length
 
@@ -175,10 +176,10 @@ function move(dir, places,index) {
       
     }
     
-    await resetCoords()
+    resetCoords()
 }
 
-async function resetCoords() {
+function resetCoords() {
     
     for(var thisRow = 0; thisRow < grid.length ; thisRow++ ) { 
         for(var thisCol = 0; thisCol < grid[0].length ; thisCol++ ) {  
