@@ -43,20 +43,21 @@ grid[start_row][start_col].start = true;
 
 render();
 
- 
-    
-mvmt = lines[m].pop().split(" ");   
 
-head = findHead();
-tail = findTail();
+for(m = 0; m < lines.length ; m++){
+    console.log(lines[m])
+    mvmt = lines[m].split(" ");   
 
-if (mvmt[0] == 'U' ) { expandGrid('U', mvmt[1])}
-if (mvmt[0] == 'D' ) { expandGrid('D', mvmt[1])}
-if (mvmt[0] == 'L' ) { expandGrid('L', mvmt[1])}
-if (mvmt[0] == 'R' ) { expandGrid('R', mvmt[1])}
+    head = findHead();
+    tail = findTail();
 
-move(mvmt[0], mvmt[1],m); 
- 
+    if (mvmt[0] == 'U' ) { expandGrid('U', mvmt[1])}
+    if (mvmt[0] == 'D' ) { expandGrid('D', mvmt[1])}
+    if (mvmt[0] == 'L' ) { expandGrid('L', mvmt[1])}
+    if (mvmt[0] == 'R' ) { expandGrid('R', mvmt[1])}
+
+    move(mvmt[0], mvmt[1],m); 
+}
 
 render()
  
